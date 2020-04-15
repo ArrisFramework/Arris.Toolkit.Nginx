@@ -23,8 +23,5 @@ Later:
 
 ```
 NginxToolkit::clear_nginx_cache($url)
-
-NginxTookit::clear_nginx_cache_entire()
-
-
+NginxToolkit::clear_nginx_cache_entire()
 ```
