@@ -1,5 +1,5 @@
 {
-    "name": "karelwintersky/arris.nginx-toolkit",
+    "name": "karelwintersky/arris.toolkit.nginx",
     "description": "Arris mFramework NGINX Toolkit",
     "type": "library",
     "license": "MIT",
