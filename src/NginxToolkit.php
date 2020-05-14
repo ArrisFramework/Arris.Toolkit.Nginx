@@ -54,10 +54,6 @@ class NginxToolkit implements NginxToolkitInterface
         self::$nginx_cache_key = self::setOption($options, 'cache_key_format', 'GET|||HOST|PATH');
     }
 
-    /**
-     * @param string $url
-     * @return bool
-     */
     public static function clear_nginx_cache(string $url)
     {
         if (self::$is_using_cache == 0) {
@@ -107,11 +103,19 @@ class NginxToolkit implements NginxToolkitInterface
         return $unlink_status;
     } // -clear_nginx_cache()
 
+
     public static function clear_nginx_cache_entire()
     {
+        if (self::$is_using_cache == 0) {
+            return false;
+        }
+
         $unlink_status = true;
 
         self::$LOGGER->debug("NGINX Cache Force Cleaner: requested clean whole cache");
+
+        if (!is_dir(self::$nginx_cache_root))
+            throw new Exception("NGINX Cache directory " . self::$nginx_cache_root . " not exist!");
 
         $dir_content = array_diff(scandir(self::$nginx_cache_root), ['.', '..']);
 

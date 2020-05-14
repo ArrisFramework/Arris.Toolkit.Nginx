@@ -12,7 +12,8 @@ use Exception;
 interface NginxToolkitInterface {
 
     /**
-     * Init NGINX Toolkit class
+     * Init NGINX Toolkit static class
+     * Инициализирует NGINX Toolkit static class
      *
      * @param array $options
      * Options:
@@ -29,18 +30,21 @@ interface NginxToolkitInterface {
     public static function init($options = [], $logger = null);
 
     /**
+     * Clear NGINX Cache record for given URL
      * Очищает nginx-кэш для переданного URL
-     * Логгирует всегда
      *
      * @param string $url
      * @return bool
+     * @throws Exception
      */
     public static function clear_nginx_cache(string $url);
 
     /**
+     * Clear entire NGINX Cache
      * Полная очистка КЭША NGINX
      *
      * @return bool
+     * @throws Exception
      */
     public static function clear_nginx_cache_entire();
 
