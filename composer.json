@@ -9,6 +9,7 @@
             "email": "karel.wintersky@gmail.com"
         }
     ],
+    "version": "1.4",
     "require": {
         "php": ">=7",
         "monolog/monolog": "^1.25.3"

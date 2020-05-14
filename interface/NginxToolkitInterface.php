@@ -3,23 +3,27 @@
 namespace Arris\Toolkit;
 
 use Exception;
-use Monolog\Logger;
 
+/**
+ * Interface NginxToolkitInterface
+ *
+ * @package Arris\Toolkit
+ */
 interface NginxToolkitInterface {
 
     /**
      * Init NGINX Toolkit class
-     * Options:
-     * - isUseCache | ENV->NGINX.NGINX_CACHE_USE   - использовать ли кэш?
-     * - isLogging | ENV->NGINX.LOG_CACHE_CLEANING - логгировать ли операции очистки кэша
-     * - cache_root | ENV->NGINX.NGINX_CACHE_PATH - путь до кэша nginx
-     * - cache_levels | ENV->NGINX.NGINX_CACHE_LEVELS - уровни кэша
-     * - cache_key_format | ENV->NGINX.NGINX_CACHE_KEY_FORMAT - определение формата ключа
-     *
-     * Logger: инстанс Monolog\Logger для логгирования
      *
      * @param array $options
-     * @param Logger $logger
+     * Options:
+     * - isUseCache     -- default(false)               -- использовать ли кэш? -- env(NGINX.CACHE_USE)
+     * - cache_root     -- required                     -- путь до кэша nginx   -- env(NGINX.CACHE_PATH)
+     * - cache_levels   -- default('1:2')               -- уровни кэша          -- env(NGINX.CACHE_LEVELS)
+     * - cache_key_format -- default('GET|||HOST|PATH') -- определение формата ключа -- env(NGINX.CACHE_KEY_FORMAT)
+     *
+     * Если не нужно логгирование - передаем аргументом logger-а null или AppLogger::scope() с параметром logging = false
+     *
+     * @param null $logger
      * @throws Exception
      */
     public static function init($options = [], $logger = null);
@@ -48,3 +52,5 @@ interface NginxToolkitInterface {
      */
     public static function rmdir(string $directory): bool;
 }
+
+# -eof-

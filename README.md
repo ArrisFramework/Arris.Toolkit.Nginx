@@ -6,20 +6,26 @@ composer require karelwintersky/arris.nginx-toolkit
 
 # How To
 
-Init class first:
+## Init class first
+
 ```
 use Arris\Toolkit\NginxToolkit;
 
 NginxToolkit::init($options, $logger)
 ``` 
 
-- `isLogging` - default(false)
-- `isUseCache` - default(false)
-- `cache_root` - required
-- `cache_levels` - default(`'1:2'`)
-- `cache_key_format` - default(`'GET|||HOST|PATH'`)
+Options are hash-array of:  
+- `isUseCache` - использовать ли кэш? - default = false
+- `cache_root` - путь до кэша nginx - required
+- `cache_levels` - уровни кэша - default = '1:2'
+- `cache_key_format` - определение формата ключа - default = 'GET|||HOST|PATH'
 
-Later:
+Logger can be: 
+- null, 
+- monolog logger instance 
+- AppLogger::scope() call
+
+## Usage 
 
 ```
 NginxToolkit::clear_nginx_cache($url)

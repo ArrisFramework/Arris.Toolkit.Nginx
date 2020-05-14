@@ -29,34 +29,16 @@ class NginxToolkit implements NginxToolkitInterface
     private static $LOGGER = null;
 
     /**
-     * @var bool
-     */
-    private static $is_logging;
-
-    /**
      * @var mixed
      */
     private static $is_using_cache;
 
-    /**
-     * @param array $options
-     * - isLogging      ->env(NGINX.LOG_CACHE_CLEANING) ->default(false)
-     * - isUseCache     ->env(NGINX.CACHE_USE)          ->default(false)-
-     * - cache_root     ->env(NGINX.CACHE_PATH)         ->required()
-     * - cache_levels   ->env(NGINX.CACHE_LEVELS)       ->default('1:2')
-     * - cache_key_format env(NGINX.CACHE_KEY_FORMAT)   ->default('GET|||HOST|PATH')
-     *
-     * @param null $logger
-     * @throws Exception
-     */
     public static function init($options = [], $logger = null)
     {
         self::$LOGGER
             = $logger instanceof Logger
             ? $logger
             : (new Logger('null'))->pushHandler(new NullHandler());
-
-        self::$is_logging = self::setOption($options, 'isLogging', false);
 
         self::$is_using_cache = self::setOption($options, 'isUseCache', false);
 
