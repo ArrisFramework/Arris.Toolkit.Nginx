@@ -1,15 +1,17 @@
 {
     "name": "karelwintersky/arris.toolkit.nginx",
-    "description": "Arris mFramework NGINX Toolkit",
+    "description": "Arris µFramework NGINX Toolkit",
+    "keywords": ["php", "nginx", "cache", "cleaning" ],
     "type": "library",
+    "homepage": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx",
     "license": "MIT",
     "authors": [
         {
             "name": "Karel Wintersky",
-            "email": "karel.wintersky@gmail.com"
+            "email": "karel.wintersky@gmail.com",
+            "role": "Developer"
         }
     ],
-    "version": "1.6",
     "require": {
         "php": ">=7",
         "psr/log": "^1.1"
@@ -18,5 +20,10 @@
         "psr-4": {
             "Arris\\Toolkit\\": ["interface", "src"]
         }
+    },
+    "support": {
+        "source": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx",
+        "issues": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx/issues"
     }
+
 }
