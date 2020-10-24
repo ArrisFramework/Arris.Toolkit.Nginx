@@ -3,8 +3,9 @@
 namespace Arris\Toolkit;
 
 use Exception;
-use Monolog\Handler\NullHandler;
-use Monolog\Logger;
+
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class NginxToolkit implements NginxToolkitInterface
 {
@@ -24,7 +25,7 @@ class NginxToolkit implements NginxToolkitInterface
     private static $nginx_cache_key;
 
     /**
-     * @var Logger
+     * @var LoggerInterface
      */
     private static $LOGGER = null;
 
@@ -32,14 +33,14 @@ class NginxToolkit implements NginxToolkitInterface
      * @var mixed
      */
     private static $is_using_cache;
-
-    public static function init($options = [], $logger = null)
+    
+    public static function init($options = [], LoggerInterface $logger = null)
     {
         self::$LOGGER
-            = $logger instanceof Logger
+            = $logger instanceof LoggerInterface
             ? $logger
-            : (new Logger('null'))->pushHandler(new NullHandler());
-
+            : new NullLogger();
+        
         self::$is_using_cache = self::setOption($options, 'isUseCache', false);
 
         self::$nginx_cache_root = self::setOption($options, 'cache_root', null);
@@ -88,17 +89,17 @@ class NginxToolkit implements NginxToolkitInterface
             $offset -= $level;
             $cache_filepath .= "/" . substr($cache_filename, $offset, $level);
         }
+        
         $cache_filepath .= "/{$cache_filename}";
 
         if (file_exists($cache_filepath)) {
-            self::$LOGGER->info("NGINX Cache Force Cleaner: cached data present: ", [ $cache_filepath ]);
             $unlink_status = unlink($cache_filepath);
+            $msg_cleaned = $unlink_status ? ' and ' : ', but not ';
+            self::$LOGGER->notice("NGINX Cache Cleaner: cached data found{$msg_cleaned}cleaned: ", [ $cache_key, $cache_filepath, $unlink_status ]);
         } else {
-            self::$LOGGER->info("NGINX Cache Force Cleaner: cached data not found: ", [ $cache_filepath ]);
             $unlink_status = true;
+            self::$LOGGER->notice("NGINX Cache Cleaner: cached data not found: ", [ $cache_key, $cache_filepath, null ]);
         }
-
-        self::$LOGGER->info("NGINX Cache Force Cleaner: Clear status (key/status)", [$cache_key, $unlink_status]);
 
         return $unlink_status;
     } // -clear_nginx_cache()
@@ -112,7 +113,7 @@ class NginxToolkit implements NginxToolkitInterface
 
         $unlink_status = true;
 
-        self::$LOGGER->debug("NGINX Cache Force Cleaner: requested clean whole cache");
+        self::$LOGGER->debug("NGINX Cache Cleaner: requested clean whole cache");
 
         if (!is_dir(self::$nginx_cache_root))
             throw new Exception("NGINX Cache directory " . self::$nginx_cache_root . " not exist!");
@@ -123,7 +124,7 @@ class NginxToolkit implements NginxToolkitInterface
             $unlink_status = $unlink_status && self::rmdir(self::$nginx_cache_root . DIRECTORY_SEPARATOR . $subdir . '/');
         }
 
-        self::$LOGGER->debug("NGINX Cache Force Cleaner: whole cache clean status: ", [ self::$nginx_cache_root, $unlink_status ]);
+        self::$LOGGER->debug("NGINX Cache Cleaner: whole cache clean status: ", [ self::$nginx_cache_root, $unlink_status ]);
 
         return $unlink_status;
     }

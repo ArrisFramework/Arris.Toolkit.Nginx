@@ -3,6 +3,7 @@
 namespace Arris\Toolkit;
 
 use Exception;
+use Psr\Log\LoggerInterface;
 
 /**
  * Interface NginxToolkitInterface
@@ -10,7 +11,7 @@ use Exception;
  * @package Arris\Toolkit
  */
 interface NginxToolkitInterface {
-
+    
     /**
      * Init NGINX Toolkit static class
      * Инициализирует NGINX Toolkit static class
@@ -22,19 +23,20 @@ interface NginxToolkitInterface {
      * - cache_levels   -- default('1:2')               -- уровни кэша          -- env(NGINX.CACHE_LEVELS)
      * - cache_key_format -- default('GET|||HOST|PATH') -- определение формата ключа -- env(NGINX.CACHE_KEY_FORMAT)
      *
-     * Если не нужно логгирование - передаем аргументом logger-а null или AppLogger::scope() с параметром logging = false
+     * @param LoggerInterface $logger - передаем null или AppLogger::scope()
      *
-     * @param null $logger
      * @throws Exception
      */
-    public static function init($options = [], $logger = null);
+    public static function init($options = [], LoggerInterface $logger = null);
 
     /**
      * Clear NGINX Cache record for given URL
      * Очищает nginx-кэш для переданного URL
      *
      * @param string $url
+     *
      * @return bool
+     *
      * @throws Exception
      */
     public static function clear_nginx_cache(string $url);
@@ -44,6 +46,7 @@ interface NginxToolkitInterface {
      * Полная очистка КЭША NGINX
      *
      * @return bool
+     *
      * @throws Exception
      */
     public static function clear_nginx_cache_entire();
@@ -52,6 +55,7 @@ interface NginxToolkitInterface {
      * Рекурсивно удаляет каталоги по указанному пути
      *
      * @param $directory
+     *
      * @return bool
      */
     public static function rmdir(string $directory): bool;

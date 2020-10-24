@@ -13,7 +13,6 @@ use Arris\Toolkit\NginxToolkit;
 
 NginxToolkit::init($options, $logger)
 ```
- 
 
 Options are hash-array of:  
 - `isUseCache` - использовать ли кэш? - default = false
@@ -33,21 +32,19 @@ Logger can be:
  * Init NGINX Toolkit static class
  * Инициализирует NGINX Toolkit static class
  *
- * @param array $options
+ * @param array $options (default [])
  * Options:
  * - isUseCache     -- default(false)               -- использовать ли кэш? -- env(NGINX.CACHE_USE)
  * - cache_root     -- required                     -- путь до кэша nginx   -- env(NGINX.CACHE_PATH)
  * - cache_levels   -- default('1:2')               -- уровни кэша          -- env(NGINX.CACHE_LEVELS)
  * - cache_key_format -- default('GET|||HOST|PATH') -- определение формата ключа -- env(NGINX.CACHE_KEY_FORMAT)
  *
- * Если не нужно логгирование - передаем аргументом logger-а null или AppLogger::scope() с параметром logging = false
- *
- * @param null $logger
+ * @param LoggerInterface $logger - передаем null или AppLogger::scope()
+ * 
  * @throws Exception
  */
 init($options = [], $logger = null);
 ```
- 
 
 ```
 /**
