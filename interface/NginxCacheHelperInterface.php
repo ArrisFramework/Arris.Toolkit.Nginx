@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
  *
  * @package Arris\Toolkit
  */
-interface NginxToolkitInterface {
+interface NginxCacheHelperInterface {
     
     /**
      * Init NGINX Toolkit static class
@@ -27,7 +27,7 @@ interface NginxToolkitInterface {
      *
      * @throws Exception
      */
-    public static function init($options = [], LoggerInterface $logger = null);
+    public function __construct(array $options = [], LoggerInterface $logger = null);
 
     /**
      * Clear NGINX Cache record for given URL
@@ -39,7 +39,7 @@ interface NginxToolkitInterface {
      *
      * @throws Exception
      */
-    public static function clear_nginx_cache(string $url);
+    public function clearCache(string $url);
 
     /**
      * Clear entire NGINX Cache
@@ -49,7 +49,7 @@ interface NginxToolkitInterface {
      *
      * @throws Exception
      */
-    public static function clear_nginx_cache_entire();
+    public function clearCacheEntire();
 
     /**
      * Рекурсивно удаляет каталоги по указанному пути
@@ -58,7 +58,7 @@ interface NginxToolkitInterface {
      *
      * @return bool
      */
-    public static function rmdir(string $directory): bool;
+    public static function rmdir(string $directory, LoggerInterface $LOGGER): bool;
 }
 
 # -eof-

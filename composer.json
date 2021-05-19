@@ -1,7 +1,8 @@
 {
     "name": "karelwintersky/arris.toolkit.nginx",
-    "description": "Arris µFramework NGINX Toolkit",
+    "description": "Arris µFramework NGINX Helper",
     "keywords": ["php", "nginx", "cache", "cleaning" ],
+    "version": "2.0",
     "type": "library",
     "homepage": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx",
     "license": "MIT",
