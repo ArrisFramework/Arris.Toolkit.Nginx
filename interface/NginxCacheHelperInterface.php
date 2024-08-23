@@ -39,7 +39,7 @@ interface NginxCacheHelperInterface {
      *
      * @throws Exception
      */
-    public function clearCache(string $url);
+    public function clearCache(string $url): bool;
 
     /**
      * Clear entire NGINX Cache
@@ -49,13 +49,13 @@ interface NginxCacheHelperInterface {
      *
      * @throws Exception
      */
-    public function clearCacheEntire();
+    public function clearCacheEntire(): bool;
 
     /**
      * Рекурсивно удаляет каталоги по указанному пути
      *
-     * @param $directory
-     *
+     * @param string $directory
+     * @param LoggerInterface $LOGGER
      * @return bool
      */
     public static function rmdir(string $directory, LoggerInterface $LOGGER): bool;

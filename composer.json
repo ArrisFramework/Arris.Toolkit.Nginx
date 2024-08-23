@@ -2,7 +2,6 @@
     "name": "karelwintersky/arris.toolkit.nginx",
     "description": "Arris µFramework NGINX Helper",
     "keywords": ["php", "nginx", "cache", "cleaning" ],
-    "version": "2.0",
     "type": "library",
     "homepage": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx",
     "license": "MIT",
@@ -14,8 +13,8 @@
         }
     ],
     "require": {
-        "php": ">=7",
-        "psr/log": "^1.1"
+        "php": "^7.4 | 8.*",
+        "psr/log": "*"
     },
     "autoload": {
         "psr-4": {
@@ -25,6 +24,8 @@
     "support": {
         "source": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx",
         "issues": "https://github.com/KarelWintersky/Arris.Toolkit.Nginx/issues"
+    },
+    "require-dev": {
+        "rector/rector": "^1.2"
     }
-
 }
